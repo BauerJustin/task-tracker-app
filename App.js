@@ -31,8 +31,8 @@ export default function App() {
       <View style={styles.content}>
         <Button title="Add New Task" onPress={() => setIsAddMode(true)} color={Colors.primary} />
         <FlatList 
-          data={tasks} 
-          renderItem={itemData => <TaskItem onDelete={removeTaskHandle.bind(this, itemData.item.key)} title={itemData.item.value} date={itemData.item.date.toString()} />}
+          data={tasks.sort((a, b) => a.date.localeCompare(b.date))} 
+          renderItem={itemData => <TaskItem onDelete={removeTaskHandle.bind(this, itemData.item.key)} title={itemData.item.value} date={itemData.item.date} />}
         />
       </View>
       <TaskInput visible={isAddMode} onAddTask={addTaskHandler} onCancel={cancelTaskAdditionHandler}/>
