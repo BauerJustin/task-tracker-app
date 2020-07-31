@@ -9,8 +9,8 @@ export default function App() {
   const [tasks, setTasks] = useState([]);
   const [isAddMode, setIsAddMode] = useState(false);
 
-  const addTaskHandler = taskTitle => {
-    setTasks(currentTasks => [...currentTasks, { key: Math.random().toString(), value: taskTitle }]);
+  const addTaskHandler = taskAttributes => {
+    setTasks(currentTasks => [...currentTasks, { key: Math.random().toString(), value: taskAttributes[0], date: taskAttributes[1] }]);
     setIsAddMode(false);
   };
 
@@ -30,10 +30,9 @@ export default function App() {
       <Header title="Task Tracker"/>
       <View style={styles.content}>
         <Button title="Add New Task" onPress={() => setIsAddMode(true)} color={Colors.primary} />
-        
         <FlatList 
           data={tasks} 
-          renderItem={itemData => <TaskItem onDelete={removeTaskHandle.bind(this, itemData.item.key)} title={itemData.item.value} />}
+          renderItem={itemData => <TaskItem onDelete={removeTaskHandle.bind(this, itemData.item.key)} title={itemData.item.value} date={itemData.item.date.toString()} />}
         />
       </View>
       <TaskInput visible={isAddMode} onAddTask={addTaskHandler} onCancel={cancelTaskAdditionHandler}/>

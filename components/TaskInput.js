@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Modal } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Modal, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../constants/colors';
 
 const TaskInput = props => {
     const [enteredTask, setEnteredTask] = useState('');
+    const [date, setDate] = useState(new Date());
 
     const taskInputHandler = (enteredText) => {
         setEnteredTask(enteredText);
     };
 
     const addTaskHandler = () => {
-        props.onAddTask(enteredTask);
+        props.onAddTask([enteredTask, date]);
         setEnteredTask('');
+    };
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setDate(currentDate);
     };
 
     return (
@@ -24,12 +31,25 @@ const TaskInput = props => {
                     value={enteredTask}
                     autoFocus={true}
                 />
+                <View style={styles.datePicker}>
+                {true && (
+                    <DateTimePicker
+                    testID="dateTimePicker"
+                    value={date}
+                    mode='datetime'
+                    is24Hour={true}
+                    display="default"
+                    onChange={onChange}
+                    textColor={Colors.primary}
+                    />
+                )}
+                </View>
                 <View style={styles.buttonContainer}>
                     <View style={styles.button}>
                         <Button title="ADD" color={Colors.primary} onPress={addTaskHandler} />
                     </View>
                     <View style={styles.button}>
-                        <Button title="CANCEL" color={Colors.accent} onPress={props.onCancel}/>
+                        <Button title="CANCEL" color={Colors.accent} onPress={props.onCancel} />
                     </View>
                 </View>
             </View>
@@ -59,6 +79,9 @@ const styles = StyleSheet.create({
     },
     button: {
         width: '40%'
+    },
+    datePicker: {
+        width: '100%'
     }
 });
 

@@ -7,6 +7,7 @@ const TaskItem = props => {
         <TouchableOpacity activeOpacity={0.8} onPress={props.onDelete.bind(this, props.key)}>
             <View style={styles.listItem} >
                <Text>{props.title}</Text>
+               <Text>{props.date}</Text>
           </View>
         </TouchableOpacity>
     );
