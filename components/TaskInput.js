@@ -37,11 +37,13 @@ const TaskInput = props => {
                     <DateTimePicker
                     testID="dateTimePicker"
                     value={date}
-                    mode='date'
+                    mode='datetime'
                     is24Hour={true}
                     display="default"
                     onChange={onChange}
                     textColor={Colors.primary}
+                    minimumDate={new Date(Date.now())}
+                    minuteInterval={15}
                     />
                 )}
                 </View>
