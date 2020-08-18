@@ -27,10 +27,10 @@ export default function App() {
   }
 
   const checkPreviousDate = date => {
-    if (dateList.includes(date)) {
+    if (dateList.includes(date.substring(0,10))) {
       return null;
     } else {
-      dateList.push(date);
+      dateList.push(date.substring(0,10));
       return date;
     }
   }
@@ -60,8 +60,9 @@ export default function App() {
       <View style={styles.content}>
         <Button title="Add New Task" onPress={() => setIsAddMode(true)} color={Colors.primary} />
         <FlatList
+          extraData={this.state}
           data={tasks.sort((a, b) => a.date.localeCompare(b.date))}
-          renderItem={itemData => <TaskItem onDelete={removeTaskHandle.bind(this, itemData.item.key)} title={itemData.item.value} date={checkPreviousDate(itemData.item.date)} />}
+          renderItem={itemData => <TaskItem onDelete={removeTaskHandle.bind(this, itemData.item.key)} title={itemData.item.value} date={checkPreviousDate(itemData.item.date)} time={itemData.item.date} />}
         />
       </View>
       <TaskInput visible={isAddMode} onAddTask={addTaskHandler} onCancel={cancelTaskAdditionHandler} />

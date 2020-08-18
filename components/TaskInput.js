@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Modal, Platform } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Modal } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../constants/colors';
 import moment from 'moment';
@@ -13,7 +13,7 @@ const TaskInput = props => {
     };
 
     const addTaskHandler = () => {
-        props.onAddTask([enteredTask, moment(date).format().substring(0,10)]);
+        props.onAddTask([enteredTask, moment(date).format()]);
         setEnteredTask('');
     };
 
